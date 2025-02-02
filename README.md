@@ -1,36 +1,11 @@
 # 넥슨캐쉬 사용내역 확인
 
-## 환경
-
-- 개발일자: **2025.02.02**
-- `python`: 3.13.0
-- `pip`: 25.0
-- `git bash`
-
 ## 세팅
 
-### 파이썬, git 최신 버전 설치
+### Release 파일 다운로드
 
-- https://www.python.org/
-- https://git-scm.com/downloads
-
-### 프로젝트 Copy
-
-- 아래 코드는 `git bash`에서 실행
-```
-git clone https://github.com/MinyShrimp/GetNexonCash.git
-cd GetNexonCash
-```
-
-### 파이썬 가상환경 설정
-
-- 아래 코드는 `git bash`에서 실행
-```
-python.exe -m venv .venv
-python.exe -m pip install --upgrade pip
-source .venv/Scripts/activate
-pip install -r requirements.txt
-```
+![img](./imgs/깃헙릴리즈.png)
+- https://github.com/MinyShrimp/GetNexonCash/releases/tag/1.0.0
 
 ### 넥슨 NPP 코드 얻기
 
@@ -52,18 +27,15 @@ pip install -r requirements.txt
 
 ### .env 파일 설정
 
-- `.env.copy` 파일 => `.env` 변경
+- `.env` 파일 열기 (메모장)
 - `your-npp-code`에 `NPP` 코드 입력
 
-### 파이썬 코드 실행
-
-```
-python main.py
-```
+### main.exe 파일 실행
 
 ## 출력 예시 데이터
 
 - 실제로는 숫자로 나옵니다
+- `넥슨캐쉬_사용내역.txt` 파일이 같이 출력됩니다.
 
 ```
 [넥슨]에서 사용한 총 금액: x,xxx,xxx

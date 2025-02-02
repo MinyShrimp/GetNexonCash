@@ -78,56 +78,6 @@ def get_cash_list_month(
     return resp.json()
 
 
-def get_cash_list_about_year(NPP):
-    results = {}
-    for year in range(2020, 2026, 1):
-        results[year] = []
-        year_resp = get_cash_list_year(NPP, year)
-        if 'error' in year_resp:
-            results[year].append({
-                "year": year,
-                "error": year_resp['error']
-            })
-            continue
-
-        cash_totals = year_resp['data']['nexonCashHistory']['loginAccount']
-        for idx, total in enumerate(cash_totals):
-            if total == 0:
-                results[year].append({
-                    "year": year,
-                    "month": idx + 1,
-                    "total": total,
-                    "detail": {}
-                })
-
-            month_resp = get_cash_list_month(NPP, year, idx + 1)
-            if 'error' in month_resp:
-                results[year].append({
-                    "year": year,
-                    "month": idx + 1,
-                    "total": total,
-                    "error": month_resp["error"]
-                })
-                continue
-
-            details = month_resp['data']['nexonCashHistoryDetailUse']['useList']
-            tmp = {}
-            for detail in details:
-                gn = detail['gameName']
-                if gn not in tmp:
-                    tmp[gn] = []
-                tmp[gn].append(detail)
-            
-            results[year].append({
-                "year": year,
-                "month": idx + 1,
-                "total": total,
-                "details": tmp
-            })
-    
-    return results
-
-
 def get_cash_list_about_game(NPP):
     results = { "total": 0, "skips": [], "games": {} }
     for year in range(2020, 2026, 1):
@@ -192,16 +142,22 @@ if __name__ == "__main__":
 
     results = get_cash_list_about_game(NPP)
 
-    print(f"[넥슨]에서 사용한 총 금액: {results['total']:,}")
-    print("======================================================")
+    text = f"[넥슨]에서 사용한 총 금액: {results['total']:,}\n"
+    text += "======================================================\n"
     for k, game in results['games'].items():
-        print(f"[{k}]에서 사용한 총 금액: {game['total']:,}")
-        print("------------------------------------------------------")
+        text += f"[{k}]에서 사용한 총 금액: {game['total']:,}\n"
+        text += "------------------------------------------------------\n"
 
         for y, y_detail in game['detail'].items():
-            print(f"  {y}년: {y_detail['total']:,}")
+            text += f"  {y}년: {y_detail['total']:,}\n"
 
             for m, m_detail in y_detail['detail'].items():
-                print(f"    {m:02}월: {m_detail['total']:,}")
+                text += f"    {m:02}월: {m_detail['total']:,}\n"
         
-        print("======================================================")
+        text += "======================================================\n"
+
+    with open("./넥슨캐쉬_사용내역.txt", mode="w+", encoding="utf-8") as f:
+        f.write(text)
+
+    print(text)
+    input("아무키나 누르면 종료됩니다..")

@@ -1,3 +1,8 @@
 .venv/
+build/
+dist/
+resources/
 *.json
+*.txt
 .env
+*.zip
