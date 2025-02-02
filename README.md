@@ -14,6 +14,14 @@
 - https://www.python.org/
 - https://git-scm.com/downloads
 
+### 프로젝트 Copy
+
+- 아래 코드는 `git bash`에서 실행
+```
+git clone https://github.com/MinyShrimp/GetNexonCash.git
+cd GetNexonCash
+```
+
 ### 파이썬 가상환경 설정
 
 - 아래 코드는 `git bash`에서 실행
